@@ -1,13 +1,9 @@
 package engine;
 
 import enstabretagne.base.time.LogicalDateTime;
-import enstabretagne.engine.EntiteSimulee;
-import enstabretagne.engine.ScenarioInitData;
-import enstabretagne.engine.SimuEngine;
 import enstabretagne.simulation.basics.ScenarioId;
-import entity.Airplane;
 
-public abstract class Scenario extends Airplane{
+public abstract class Scenario extends EntiteSimulee{
 
 	public LogicalDateTime getDebut() {
 		return ((ScenarioInitData) getInit()).getDebut();

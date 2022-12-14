@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import engine.EntiteSimulee.EtatEntite;
 import enstabretagne.base.logger.Logger;
 import enstabretagne.base.math.MoreRandom;
 import enstabretagne.base.time.LogicalDateTime;
@@ -11,8 +12,12 @@ import enstabretagne.simulation.basics.IScenarioIdProvider;
 import enstabretagne.simulation.basics.ISimulationDateProvider;
 import enstabretagne.simulation.basics.ScenarioId;
 import enstabretagne.simulation.basics.SortedList;
-import entity.Airplane;
-
+/*
+ * SimuEngine impl�mente ISimulationDateProvider et IScenarioIdProvider
+ * Il est donc apte � d�livrer :
+ * - un temps logique
+ * - l'identifiant du sc�nario en cours * 
+ */
 public class SimuEngine implements ISimulationDateProvider, IScenarioIdProvider{
 	
 	//�ch�ancier. Pi�ce principale du moteur
@@ -22,7 +27,7 @@ public class SimuEngine implements ISimulationDateProvider, IScenarioIdProvider{
 	private LogicalDateTime end;
 	
 	//Liste des entit�s de simulation cr��es et connues du moteur
-	protected List<Airplane> myAirplanes; 
+	protected List<EntiteSimulee> mesEntitesSimulees; 
 
 	//temps logique de la simulation g�r� par le moteur de simulation
 	private LogicalDateTime currentDate;
@@ -50,7 +55,7 @@ public class SimuEngine implements ISimulationDateProvider, IScenarioIdProvider{
 
 	public SimuEngine() {
 		echeancier = new SortedList<>();
-		myAirplanes = new ArrayList<>();
+		mesEntitesSimulees = new ArrayList<>();
 		//on initialise le journaliseur
 		Logger.setDateProvider(this);
 	}
@@ -64,7 +69,7 @@ public class SimuEngine implements ISimulationDateProvider, IScenarioIdProvider{
 		this.end = end;
 		
 		//initialisation des entit�s simul�es
-		for(Airplane e:myAirplanes)
+		for(EntiteSimulee e:mesEntitesSimulees)
 			e.requestInit();
 	}
 	
